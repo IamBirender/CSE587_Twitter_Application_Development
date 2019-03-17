@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552027862960.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EB4071B7",
+    "lastKnownWriteTime" : 12948304202498162,
+    "last_content_update" : 1552027862960,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "55ECE704",
+        "caption" : "uniqueCSV",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=uniqueCSV&cache_key=55ECE704",
+        "displayedObservations" : 699,
+        "environment" : "",
+        "object" : "uniqueCSV",
+        "preview" : 0,
+        "totalObservations" : 699,
+        "variables" : 8
+    },
+    "relative_order" : 29,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

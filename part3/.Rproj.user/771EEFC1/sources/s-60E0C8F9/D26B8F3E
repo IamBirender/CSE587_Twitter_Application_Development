@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552068591430.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "D26B8F3E",
+    "lastKnownWriteTime" : 1552089792,
+    "last_content_update" : 1552089790908,
+    "path" : "D:/Github/mpbrownLab1/part3/shinyapp/app.R",
+    "project_path" : "shinyapp/app.R",
+    "properties" : {
+        "cursorPosition" : "35,14",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 32,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

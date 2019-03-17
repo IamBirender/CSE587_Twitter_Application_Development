@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552021990921.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "ADD266C6",
+    "lastKnownWriteTime" : 1551997220,
+    "last_content_update" : 1551997220,
+    "path" : "D:/Github/mpbrownLab1/part3/lab1part3scratch.R",
+    "project_path" : "lab1part3scratch.R",
+    "properties" : {
+        "cursorPosition" : "272,34",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 21,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

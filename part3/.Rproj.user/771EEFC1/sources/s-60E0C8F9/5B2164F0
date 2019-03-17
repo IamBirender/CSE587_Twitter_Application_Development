@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552023148972.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5B2164F0",
+    "lastKnownWriteTime" : 1,
+    "last_content_update" : 1552023148972,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "8BEFF19A",
+        "caption" : "temprevgeo",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=temprevgeo&cache_key=8BEFF19A",
+        "displayedObservations" : "1",
+        "environment" : "",
+        "object" : "temprevgeo",
+        "preview" : "0",
+        "totalObservations" : "1",
+        "variables" : "7"
+    },
+    "relative_order" : 23,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

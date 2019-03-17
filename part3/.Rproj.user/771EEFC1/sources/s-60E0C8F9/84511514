@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552012046349.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "84511514",
+    "lastKnownWriteTime" : 12948304202498162,
+    "last_content_update" : 1552012046349,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "74E6ED15",
+        "caption" : "geocoded.users.fromcsv",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=geocoded.users.fromcsv&cache_key=74E6ED15",
+        "displayedObservations" : 3193,
+        "environment" : "",
+        "object" : "geocoded.users.fromcsv",
+        "preview" : 0,
+        "totalObservations" : 3193,
+        "variables" : 7
+    },
+    "relative_order" : 15,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

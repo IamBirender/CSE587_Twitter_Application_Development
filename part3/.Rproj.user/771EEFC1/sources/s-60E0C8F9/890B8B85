@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552027932598.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "890B8B85",
+    "lastKnownWriteTime" : 3180141808686473843,
+    "last_content_update" : 1552027932598,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "D6BB27D2",
+        "caption" : "totalTweetsPerState",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=totalTweetsPerState&cache_key=D6BB27D2",
+        "displayedObservations" : "49",
+        "environment" : "",
+        "object" : "totalTweetsPerState",
+        "preview" : "0",
+        "totalObservations" : "49",
+        "variables" : "2"
+    },
+    "relative_order" : 30,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552006779940.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "1DDDFF91",
+    "lastKnownWriteTime" : 12948304202498162,
+    "last_content_update" : 1552006779940,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "D1DE48BE",
+        "caption" : "geoprep.usersMerged",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=geoprep.usersMerged&cache_key=D1DE48BE",
+        "displayedObservations" : "4152",
+        "environment" : "",
+        "object" : "geoprep.usersMerged",
+        "preview" : "0",
+        "totalObservations" : "4152",
+        "variables" : "4"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

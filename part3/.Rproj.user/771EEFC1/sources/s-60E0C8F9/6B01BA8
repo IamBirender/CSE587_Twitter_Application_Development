@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552022298676.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "6B01BA8",
+    "lastKnownWriteTime" : 1,
+    "last_content_update" : 1552022298676,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "id" : "640d31ec04ea4dcf9a3768228cc64e2f",
+        "name" : "temprevgeo",
+        "title" : "temprevgeo"
+    },
+    "relative_order" : 22,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "object_explorer"
+}

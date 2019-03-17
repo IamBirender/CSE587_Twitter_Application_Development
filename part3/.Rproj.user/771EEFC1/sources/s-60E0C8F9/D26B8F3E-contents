@@ -1,0 +1,96 @@
+# Team member 1: Michael Brown (UBIT Name: mpbrown || UBIT number: 50158715)
+# Team member 2: Birender Singh (UBIT Name: birender || UBIT number: 50288934) 
+
+library(shiny)
+library(lubridate)
+library(glue)
+library(dplyr)
+library(tidyr)
+library(ggmap)
+library(ggplot2)
+library(maptools)
+library(maps)
+library(usmap)
+
+# Define UI for miles per gallon app ----
+ui <- fluidPage(
+  
+  # App title ----
+  titlePanel("CSE487 Flu Tweets"),
+  
+  sidebarLayout(
+    # Sidebar panel for inputs ----
+    sidebarPanel(
+      checkboxGroupInput("var", "Select your keywords:",
+                         choices = c("flu" = "flu", "vaccine" = "vaccine", "h1n1" = "h1n1", "tamiflu" = "tamiflu", 
+                                     "influenza" = "influenza", "headache" = "headache", "lymph" = "lymph",
+                                     "sinus" = "sinus"),
+                         selected = c("flu")
+      ),
+      tags$p("MUST SELECT AT LEAST ONE KEYWORD. If none are selected, the plot renders as an error")
+      
+    ),
+    
+    # Main panel for displaying outputs ----
+    mainPanel(
+      tags$p("Team member 1: Michael Brown (UBIT Name: mpbrown || UBIT number: 50158715)"),
+      tags$p("Team member 2: Birender Singh (UBIT Name: birender || UBIT number: 50288934)"),
+      tags$p("Based on the comparison between these maps, my observation is that Twitter is not necessarily accurate in terms of tracking flu activity. The obvious reason for this is that active Twitter users are not an accurately representative sample of the entire population."),
+      tags$h3("My Twitter Map plotting Flu-related Keyword Tweets per State"),
+      plotOutput("myplot"),
+      tags$h3("Map from the CDC showing Influenza-Like Illness (ILI) Activity Level per State"),
+      plotOutput("cdcplot")
+    )
+  )
+)
+
+# Define server logic to plot various variables against mpg ----
+server <- function(input, output) {
+  inputVarsToDataList <- function(){
+    if(is.na(input$var) || length(input$var) == 0){
+      return(NA)
+    }
+    stateTweetFullList <- NULL
+    for(k in input$var){
+      if(is.null(stateTweetFullList)){
+        stateTweetFullList <- select(read.csv(glue('geo-unique-tweets-',{k},'.csv')), -c("X"))
+      } else {
+        uniqueCSV <- select(read.csv(glue('geo-unique-tweets-',{k},'.csv')), -c("X"))
+        
+        stateTweetFullList <- rbind(stateTweetFullList, uniqueCSV)
+      }
+    }
+    stateTweetUniqueList <- unique(stateTweetFullList, by = "tweetID")
+    return(count(stateTweetFullList, state))
+  }
+  
+  cdcMap <- function(){
+    heat_data<- read.csv(file = "StateDataforMap_2018-19week9.csv")
+    # x1
+    heat_data$Val<- gsub("[^0-9\\.]","", heat_data$ACTIVITY.LEVEL)
+    heat_data$Val<-as.integer(heat_data$Val)
+    
+    heat_data <- rename(heat_data, state = STATENAME)
+    
+    
+    gplot <- plot_usmap(regions = "states", data = heat_data, values = "Val", lines = "black")+
+      scale_fill_continuous(low = "white", high = "red", name = "ILI Activity Level", label = scales::comma)+
+      theme(legend.position = "right")
+    
+    gplot <- gplot + ggtitle("2018-19 Influenza Season Week 9 ending Mar 02, 2019")
+    gplot <- gplot + theme_void()
+    
+    return(gplot)
+  }
+  
+  output$cdcplot <- renderPlot({
+    cdcMap()
+  })
+  
+  output$myplot <- renderPlot({
+    plot_usmap(regions = "states", data = inputVarsToDataList(), values = "n", lines = "black")+
+      labs(title ="Flu-related Keyword Tweets per State for week ending Mar 02, 2019")+
+      scale_fill_continuous(low = "white", high = "red", name = "Keyword Tweets", label = scales::comma)+
+      theme(legend.position = "right")})
+}
+shinyApp(ui, server)

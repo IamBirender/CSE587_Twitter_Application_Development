@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552004568397.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "626EDC1F",
+    "lastKnownWriteTime" : 12948304202498162,
+    "last_content_update" : 1552004568397,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "1F641D7C",
+        "caption" : "jointestFlu",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=jointestFlu&cache_key=1F641D7C",
+        "displayedObservations" : "3628",
+        "environment" : "",
+        "object" : "jointestFlu",
+        "preview" : "0",
+        "totalObservations" : "3628",
+        "variables" : "3"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

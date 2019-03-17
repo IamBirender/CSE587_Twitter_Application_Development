@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552075139921.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "54F06912",
+    "lastKnownWriteTime" : 2482448084909518882,
+    "last_content_update" : 1552075139921,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "DE6BF210",
+        "caption" : "stateTweetUniqueList",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=stateTweetUniqueList&cache_key=DE6BF210",
+        "displayedObservations" : "6245",
+        "environment" : "",
+        "object" : "stateTweetUniqueList",
+        "preview" : "0",
+        "totalObservations" : "6245",
+        "variables" : "7"
+    },
+    "relative_order" : 33,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552024800508.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E0C91B82",
+    "lastKnownWriteTime" : 12948304202498162,
+    "last_content_update" : 1552024800508,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "id" : "1420a83becc04ec0b7e72202565f8819",
+        "name" : "testrevgeo",
+        "title" : "testrevgeo"
+    },
+    "relative_order" : 25,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "object_explorer"
+}

@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552008505394.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "96908C96",
+    "lastKnownWriteTime" : 12948304202498162,
+    "last_content_update" : 1552008505394,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "2A48B0D3",
+        "caption" : "geocoded.users.nogeneric",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=geocoded.users.nogeneric&cache_key=2A48B0D3",
+        "displayedObservations" : "1904",
+        "environment" : "",
+        "object" : "geocoded.users.nogeneric",
+        "preview" : "0",
+        "totalObservations" : "1904",
+        "variables" : "4"
+    },
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

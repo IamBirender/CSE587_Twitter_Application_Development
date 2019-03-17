@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552021742408.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "93C05B48",
+    "lastKnownWriteTime" : 3275013526697243253,
+    "last_content_update" : 1552021742408,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "244C23D7",
+        "caption" : "inputforrevgeo",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=inputforrevgeo&cache_key=244C23D7",
+        "displayedObservations" : "10",
+        "environment" : "",
+        "object" : "inputforrevgeo",
+        "preview" : "0",
+        "totalObservations" : "10",
+        "variables" : "2"
+    },
+    "relative_order" : 20,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

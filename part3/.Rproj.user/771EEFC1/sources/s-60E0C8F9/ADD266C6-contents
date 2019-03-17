@@ -1,0 +1,280 @@
+library(twitteR)
+library(keyring)
+library(lubridate)
+library(glue)
+library(dplyr)
+library(tidyr)
+library(ggmap)
+library(ggplot2)
+library(maptools)
+library(maps)
+library(usmap)
+library(sp)
+library(jsonlite)
+library(revgeo)
+
+
+setup_twitter_oauth(
+  key_get("twitter_consumer_key", keyring = "mykeyring"),
+  key_get("twitter_consumer_secret", keyring = "mykeyring"),
+  key_get("twitter_access_token", keyring = "mykeyring"),
+  key_get("twitter_access_secret", keyring = "mykeyring")
+)
+
+register_google(key_get("GoogleAPI", keyring = "mykeyring"))
+
+# keywords
+# flu vaccine flu&shot h1n1 tamiflu influenza headache lymph sinus
+keywords <- c("flu","vaccine","h1n1","tamiflu","influenza","headache","lymph","sinus")
+keywords <- c("headache", "lymph", "sinus")
+
+collectTweetsWithKeywords <- function(keywordList, startDate, endDate){
+  
+}
+for(day in as.list(dates)){
+for(k in keywords){
+  # Check current API rate limit
+  myRateLimit <- getCurRateLimitInfo(c("search"))
+  
+  # If limit has been reached, sleep until API reset time
+  if(myRateLimit$remaining < 1){
+    resetTime <- myRateLimit$reset
+    nowTime <- with_tz(Sys.time(), tz="UTC")
+    sleepingTime <- as.numeric(resetTime-nowTime, units="secs")
+    print(glue('Sleeping for ',{sleepingTime}))
+    Sys.sleep(as.numeric(resetTime-nowTime, units="secs"))
+  }
+
+  searchWord <- as.character(k)
+  
+  # Construct filename based on keyword
+  filename <- glue('tw-',{searchWord},'.csv')
+  
+  print(glue('Attemping search of ',{searchWord}, ' since ',as.character(day),' until ',as.character(day+1)))
+  
+  # Searches Twitter API for provided dates given searchWord, then strips any retweets, and converts to DF
+  dtweets <- twListToDF(strip_retweets(searchTwitter(searchWord, n=900, since=as.character(day), until = as.character(day+1), retryOnRateLimit = 450)))
+  
+  print(glue('Completed search of ',{searchWord}, ' with ',{nrow(dtweets)},' rows'))
+  
+  print(glue('Appending to ',{filename}))
+  if(!file.exists(filename)){
+    write.csv(dtweets, file=filename)
+  } else {
+    existingCSV <- read.csv(file = filename, stringsAsFactors = F)
+    existingCSV <- select(existingCSV, -c("X"))
+    newCSV <- rbind(existingCSV, dtweets)
+    write.csv(newCSV, file=filename)
+    #write.table(dtweets, file = "tw-sinusrow.csv", sep = ",", col.names = NA, append = T, qmethod = "double")
+  }
+}
+}
+dates <- seq(as.Date("2019-03-03"), as.Date("2019-03-03"), by=1)
+for(day in as.list(dates)){
+  print(as.character(day))
+  print(as.character(day+1))
+}
+
+#myRateLimit <- getCurRateLimitInfo(c("search"))
+#myRateLimit$remaining
+#myRateLimit$reset
+
+waitIfTwitterAPILimited <- function(api_command){
+  # Check current API rate limit
+  myRateLimit <- getCurRateLimitInfo(api_command)
+  
+  if(api_command == "users"){
+    myRateLimit <- subset(getCurRateLimitInfo("users"), resource == "/users/lookup")
+  }
+  print(myRateLimit)
+  print(myRateLimit$remaining < 1)
+  
+  # If limit has been reached, sleep until API reset time
+  if(myRateLimit$remaining < 1){
+    print("Limit reached")
+    resetTime <- myRateLimit$reset
+    nowTime <- with_tz(Sys.time(), tz="UTC")
+    sleepingTime <- as.numeric(resetTime-nowTime, units="secs")
+    # Sleep for 'sleepingTime'
+    print(glue('Sleeping for ',{sleepingTime}))
+    Sys.sleep(as.numeric(resetTime-nowTime, units="secs"))
+  }
+}
+
+## Geocoding section
+#tw.flu <- read.csv("tw-flu.csv")
+#tw.flu.users <- select(tw.flu, "screenName")
+#tw.flu.users.info <- twListToDF(lookupUsers(as.character(tw.flu.users$screenName), includeNA = FALSE))
+#geo.users <- select(subset(tw.flu.users.info, location != ""), screenName, location)
+
+#geocoded.users <- geocode(geo.users$location)
+
+
+#geocoded.users.full <- mutate(geo.users, latitude = geocoded.users$lat)
+#geocoded.users.full <- mutate(geocoded.users.full, longitude = geocoded.users$lon)
+
+
+# Following function code taken from StackOverflow
+# https://stackoverflow.com/questions/8751497/latitude-longitude-coordinates-to-state-code-in-r
+
+# The single argument to this function, pointsDF, is a data.frame in which:
+#   - column 1 contains the longitude in degrees (negative in the US)
+#   - column 2 contains the latitude in degrees
+
+latlong2state <- function(pointsDF) {
+  # Prepare SpatialPolygons object with one SpatialPolygon
+  # per state (plus DC, minus HI & AK)
+  states <- map('state', fill=TRUE, col="transparent", plot=FALSE)
+  IDs <- sapply(strsplit(states$names, ":"), function(x) x[1])
+  states_sp <- map2SpatialPolygons(states, IDs=IDs,
+                                   proj4string=CRS("+proj=longlat +datum=WGS84"))
+  
+  # Convert pointsDF to a SpatialPoints object 
+  pointsSP <- SpatialPoints(pointsDF, 
+                            proj4string=CRS("+proj=longlat +datum=WGS84"))
+  
+  # Use 'over' to get _indices_ of the Polygons object containing each point 
+  indices <- over(pointsSP, states_sp)
+  
+  # Return the state names of the Polygons object containing each point
+  stateNames <- sapply(states_sp@polygons, function(x) x@ID)
+  stateNames[indices]
+}
+
+# Test the function using points in Wisconsin and Oregon.
+usersLatLng <- drop_na(geocoded.users.full)
+usersLatLng <- usersLatLng[!(usersLatLng$latitude==37.0902400 & usersLatLng$longitude==-95.7128910),]
+
+testPoints <- data.frame(usersLatLng$longitude, usersLatLng$latitude)
+
+testPointsFrame <- latlong2state(testPoints)
+usersLatLngMut <- dplyr::mutate(usersLatLng, state = latlong2state(data.frame(longitude, latitude)))
+
+userStatesFlu <- drop_na(usersLatLngMut)
+write.csv(userStatesFlu, file = "geo-tw-flu.csv")
+#summary(userStatesFlu)
+
+stateTweetCount <- count(userStatesFlu, state)
+
+plot_usmap(regions = "states", data = stateTweetCount, values = "n", lines = "red")+
+  scale_fill_continuous(low = "white", high = "red", name = "Flu Tweets", label = scales::comma)+
+  theme(legend.position = "right")
+
+# Test for sinus
+tw.sinus <- read.csv("tw-sinusrow.csv")
+tw.sinus.names <- select(tw.sinus, "screenName")
+# Query API for user information
+tw.sinus.users <- twListToDF(lookupUsers(as.character(tw.sinus.names$screenName), includeNA = FALSE))
+tw.sinus.users.withloc <- select(subset(tw.sinus.users, location != ""), screenName, location)
+
+tw.sinus.users.geo <- geocode(tw.sinus.users.withloc$location)
+
+
+tw.sinus.users.latlng <- mutate(tw.sinus.users.geo, latitude = tw.sinus.users.geo$lat)
+tw.sinus.users.latlng <- mutate(tw.sinus.users.geo, longitude = tw.sinus.users.geo$lon)
+
+usersAndStates <- NULL
+
+for(k in keywords){
+  filename <- glue('tw-',{k},'.csv')
+  geoprep.names <- read.csv(filename)
+  geoprep.names <- select(geoprep.names, "screenName")
+  geoprep.users <- twListToDF(lookupUsers(as.character(geoprep.names$screenName), includeNA = FALSE))
+  geoprep.users.loclisted <- select(subset(geoprep.users, location != ""), screenName, location)
+  geoprep.users.locgeocoded <- geocode(geoprep.users.loclisted$location)
+  geocoded.users <- mutate(geoprep.users.locgeocoded, latitude = geocoded.users$lat)
+  geocoded.users <- mutate(geocoded.users, longitude = geocoded.users$lon)
+  geocoded.users <- drop_na(geocoded.users)
+  
+  geocoded.users.states <- dplyr::mutate(geocoded.users, state = latlong2state(data.frame(longitude, latitude)))
+  geocoded.users.states < drop_na(geocoded.users.states)
+  geocoded.users.onlyStatesAndNames <- select(geocoded.users.states, "screenName", "state")
+  
+  usersAndStates <- rbind(usersAndStates, geocoded.users.onlyStatesAndNames)
+}
+states.tw.count <- count(usersAndStates, state)
+
+# Remove any tweets with data just equal to "united states"
+# lon -95.71289
+# lat 37.09024
+
+geoprep.data <- read.csv("tw-flu.csv")
+geoprep.data <- select(geoprep.data, "screenName")
+
+# Select "screenName" and drop other columns
+geoprep.names <- select(geoprep.data, "screenName")
+
+
+waitIfTwitterAPILimited("users")
+# Query Twitter API for data frame of user profile information
+geoprep.users <- twListToDF(lookupUsers(as.character(geoprep.data$screenName), includeNA = FALSE))
+
+startIndex <- 1
+endIndex <- 100
+temp.geoprep.users <- NULL
+while(endIndex < nrow(geoprep.names)){
+  tryCatch({
+    waitIfTwitterAPILimited("users")
+    temp.geoprep.users <- rbind(temp.geoprep.users, select(
+      twListToDF(lookupUsers(as.character(
+        geoprep.names$screenName[startIndex:endIndex]
+      ), includeNA = FALSE)), "screenName"))
+    
+    startIndex <- endIndex+1
+    if(endIndex != nrow(geoprep.names)){
+      if((nrow(geoprep.names) - endIndex) < 100){
+        #ending bracket
+        endIndex <- nrow(geoprep.names)
+        waitIfTwitterAPILimited("users")
+        temp.geoprep.users <- rbind(temp.geoprep.users, select(twListToDF(lookupUsers(as.character(geoprep.names$screenName[startIndex:endIndex]), includeNA = FALSE)), "screenName"))
+      } else {
+        endIndex <- endIndex+100
+      }
+    }
+  }, error = function(e) {
+    message("403 error from Twitter")
+  }
+)
+  
+}
+waitIfTwitterAPILimited("users")
+
+
+# Select only users with a non-empty location listed and only keep columns 'screenName' and 'location'
+geoprep.users <- select(subset(geoprep.users, location != ""), screenName, location)
+
+# Query Google Maps API to geocode user locations
+geoprep.users.locgeocoded <- geocode(geoprep.users$location)
+
+# Add latitude and longitude columns to geocoded.users
+geocoded.users <- dplyr::mutate(geoprep.users, latitude = geoprep.users.locgeocoded$lat)
+geocoded.users <- dplyr::mutate(geocoded.users, longitude = geoprep.users.locgeocoded$lon)
+
+write.csv(geocoded.users, file = "geo-users-tw-flu.csv")
+
+# Drop imprecise rows where geocode failed such as locations of "sitting in grass" or "somewhere"
+geocoded.users <- drop_na(geocoded.users)
+# Drop imprecise rows where geocode returned merely the geographical center of the United States
+geocoded.users.nogeneric <- geocoded.users[!(geocoded.users$latitude==37.0902400 & geocoded.users$longitude==-95.7128910),]
+write.csv(geocoded.users.nogeneric, file = "geo-users-nogeneric-flu.csv")
+
+googlerevgeo <- revgeo(geocoded.users.nogeneric$longitude, geocoded.users.nogeneric$latitude, provider = "google", API = key_get("GoogleAPI", keyring = "mykeyring"), output = "frame")
+existingCSV <- read.csv(file = "geo-users-nogeneric-flu.csv", stringsAsFactors = F)
+existingCSV <- select(existingCSV, -c("X"))
+newCSV <- cbind(existingCSV, state = googlerevgeo$state)
+filteredCSV <- subset(newCSV, state %in% state.name)
+
+write.csv(filteredCSV, file="geo-filtered-flu.csv")
+
+stateTweetCount <- count(filteredCSV, state)
+
+plot_usmap(regions = "states", data = stateTweetCount, values = "n", lines = "red")+
+  scale_fill_continuous(low = "white", high = "red", name = "Flu Tweets", label = scales::comma)+
+  theme(legend.position = "right")
+
+# Get U.S. state from coordinates and add to new 'state' column
+geocoded.users.states <- dplyr::mutate(geocoded.users.nogeneric, state = latlong2state(data.frame(longitude, latitude)))
+
+# Drop rows where locations did not convert to U.S. states (ie. for any rows outside of the U.S.)
+geocoded.users.states <- drop_na(geocoded.users.states)
+write.csv(geocoded.users.states, file = glue('geo-tw-',{k},'.csv'))

@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552008295722.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EF8EE8C9",
+    "lastKnownWriteTime" : 3419473789575321445,
+    "last_content_update" : 1552008295722,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "4A0991A7",
+        "caption" : "geoprep.users.locgeocoded",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=geoprep.users.locgeocoded&cache_key=4A0991A7",
+        "displayedObservations" : "2103",
+        "environment" : "",
+        "object" : "geoprep.users.locgeocoded",
+        "preview" : "0",
+        "totalObservations" : "2103",
+        "variables" : "2"
+    },
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

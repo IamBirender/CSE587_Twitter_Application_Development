@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1552020356457.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "AB38BB8E",
+    "lastKnownWriteTime" : 3180141808686473843,
+    "last_content_update" : 1552020356457,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "A1465AA8",
+        "caption" : "geocoded.users.latlng",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=geocoded.users.latlng&cache_key=A1465AA8",
+        "displayedObservations" : 1682,
+        "environment" : "",
+        "object" : "geocoded.users.latlng",
+        "preview" : 0,
+        "totalObservations" : 1682,
+        "variables" : 4
+    },
+    "relative_order" : 19,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

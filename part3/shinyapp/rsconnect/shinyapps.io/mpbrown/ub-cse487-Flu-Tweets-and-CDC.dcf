@@ -1,0 +1,12 @@
+name: ub-cse487-Flu-Tweets-and-CDC
+title: ub-cse487-Flu-Tweets-and-CDC
+username:
+account: mpbrown
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 777485
+bundleId: 1926655
+url: https://mpbrown.shinyapps.io/ub-cse487-Flu-Tweets-and-CDC/
+when: 1552090073.26311
+asMultiple: FALSE
+asStatic: FALSE
